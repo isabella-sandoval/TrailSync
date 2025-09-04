@@ -1,0 +1,67 @@
+<% content_for :title, "Plan New Trip - TrailSync" %>
+
+<div class="w-full max-w-2xl mx-auto">
+  <!-- Back Navigation -->
+  <div class="mb-6">
+    <%= link_to trips_path, class: "inline-flex items-center text-gray-600 hover:text-gray-900 transition duration-300" do %>
+      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+      </svg>
+      <span class="font-medium">Back to My Trips</span>
+    <% end %>
+  </div>
+
+  <!-- Header -->
+  <div class="text-center mb-6">
+    <div class="bg-gradient-to-r from-blue-600 to-green-600 p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+      <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+      </svg>
+    </div>
+    <h1 class="text-2xl font-bold text-gray-900 mb-2">Plan New Trip</h1>
+    <p class="text-gray-600">Create a new adventure and start planning your journey</p>
+  </div>
+
+  <!-- Form Card -->
+  <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-8">
+    <%= render "form", trip: @trip %>
+    
+    <div class="mt-8 pt-6 border-t border-gray-200">
+      <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
+        <%= link_to trips_path, class: "flex-1 text-center bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition duration-300" do %>
+          Cancel
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tips Card -->
+  <div class="mt-8 bg-blue-50 border border-blue-200 rounded-xl p-6">
+    <h3 class="text-lg font-semibold text-blue-900 mb-3 flex items-center">
+      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+      </svg>
+      Planning Tips
+    </h3>
+    <ul class="text-blue-800 space-y-2 text-sm">
+      <li class="flex items-start">
+        <svg class="w-4 h-4 mr-2 mt-0.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        Choose a descriptive title that captures the essence of your trip
+      </li>
+      <li class="flex items-start">
+        <svg class="w-4 h-4 mr-2 mt-0.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        Include important details like location, activities, and packing lists in your notes
+      </li>
+      <li class="flex items-start">
+        <svg class="w-4 h-4 mr-2 mt-0.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        You can always edit and add more details later as your plans develop
+      </li>
+    </ul>
+  </div>
+</div>
