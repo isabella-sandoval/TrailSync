@@ -23,17 +23,19 @@
   </div>
 
   <!-- Form Card -->
-  <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-8">
-    <%= render "form", trip: @trip %>
-    
-    <div class="mt-8 pt-6 border-t border-gray-200">
-      <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
-        <%= link_to trips_path, class: "flex-1 text-center bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition duration-300" do %>
-          Cancel
-        <% end %>
+  <%= turbo_frame_tag "new_trip_form" do %>
+    <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-8">
+      <%= render "form", trip: @trip %>
+      
+      <div class="mt-8 pt-6 border-t border-gray-200">
+        <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
+          <%= link_to trips_path, class: "flex-1 text-center bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition duration-300" do %>
+            Cancel
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 
   <!-- Tips Card -->
   <div class="mt-8 bg-blue-50 border border-blue-200 rounded-xl p-6">

@@ -29,9 +29,14 @@ class TripsController < ApplicationController
     respond_to do |format|
       if @trip.save
         format.html { redirect_to @trip, notice: "Trip was successfully created." }
+        format.turbo_stream { 
+          @trips = Trip.recent
+          render turbo_stream: turbo_stream.replace("trips_list", partial: "trips_list", locals: { trips: @trips })
+        }
         format.json { render :show, status: :created, location: @trip }
       else
         format.html { render :new, status: :unprocessable_entity }
+        format.turbo_stream { render :new, status: :unprocessable_entity }
         format.json { render json: @trip.errors, status: :unprocessable_entity }
       end
     end
@@ -56,6 +61,10 @@ class TripsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to trips_path, notice: "Trip was successfully destroyed.", status: :see_other }
+      format.turbo_stream { 
+        @trips = Trip.recent
+        render turbo_stream: turbo_stream.replace("trips_list", partial: "trips_list", locals: { trips: @trips })
+      }
       format.json { head :no_content }
     end
   end
