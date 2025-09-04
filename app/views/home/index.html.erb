@@ -1,0 +1,136 @@
+<% content_for :title, "TrailSync - Your Adventure Companion" %>
+
+<div class="w-full">
+  <!-- Hero Section -->
+  <div class="bg-gradient-to-r from-blue-600 to-green-600 text-white rounded-xl p-6 mb-6 shadow-md">
+    <div class="max-w-3xl mx-auto text-center">
+      <h1 class="text-3xl font-bold mb-3">Welcome to TrailSync</h1>
+      <p class="text-lg mb-4 opacity-90">Your personal adventure companion for tracking and planning trips</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <%= link_to "Plan New Trip", new_trip_path, class: "bg-white text-blue-600 px-6 py-2 rounded-lg font-medium hover:bg-gray-100 transition duration-300" %>
+        <%= link_to "View All Trips", trips_path, class: "border border-white text-white px-6 py-2 rounded-lg font-medium hover:bg-white hover:text-blue-600 transition duration-300" %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Stats -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+      <div class="flex items-center">
+        <div class="bg-blue-100 p-3 rounded-full">
+          <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <div class="ml-4">
+          <p class="text-2xl font-bold text-gray-900"><%= Trip.count %></p>
+          <p class="text-gray-600">Total Trips</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+      <div class="flex items-center">
+        <div class="bg-green-100 p-3 rounded-full">
+          <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <div class="ml-4">
+          <p class="text-2xl font-bold text-gray-900"><%= Trip.upcoming.count %></p>
+          <p class="text-gray-600">Upcoming</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+      <div class="flex items-center">
+        <div class="bg-purple-100 p-3 rounded-full">
+          <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+          </svg>
+        </div>
+        <div class="ml-4">
+          <p class="text-2xl font-bold text-gray-900"><%= Trip.past.count %></p>
+          <p class="text-gray-600">Completed</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Trips Preview -->
+  <% if Trip.any? %>
+    <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6 mb-8">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">Recent Trips</h2>
+        <%= link_to "View All", trips_path, class: "text-blue-600 hover:text-blue-800 font-medium" %>
+      </div>
+      
+      <div class="space-y-4">
+        <% Trip.recent.limit(3).each do |trip| %>
+          <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-200">
+            <div class="flex-1">
+              <h3 class="font-semibold text-gray-900"><%= trip.title %></h3>
+              <p class="text-sm text-gray-600"><%= trip.formatted_date %></p>
+              <% if trip.notes.present? %>
+                <p class="text-sm text-gray-500 mt-1"><%= truncate(trip.notes, length: 100) %></p>
+              <% end %>
+            </div>
+            <div class="flex items-center space-x-3">
+              <span class="px-3 py-1 text-xs font-medium rounded-full <%= trip.status == 'upcoming' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800' %>">
+                <%= trip.status.capitalize %>
+              </span>
+              <%= link_to "View", trip, class: "text-blue-600 hover:text-blue-800 font-medium" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <!-- Empty State -->
+    <div class="text-center py-12">
+      <div class="bg-gray-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+        </svg>
+      </div>
+      <h3 class="text-lg font-semibold text-gray-900 mb-2">No trips yet</h3>
+      <p class="text-gray-600 mb-4">Start planning your first adventure!</p>
+      <%= link_to "Create Your First Trip", new_trip_path, class: "bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition duration-300" %>
+    </div>
+  <% end %>
+
+  <!-- Features Section -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+    <div class="text-center p-6">
+      <div class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+        </svg>
+      </div>
+      <h3 class="text-lg font-semibold text-gray-900 mb-2">Plan & Track</h3>
+      <p class="text-gray-600">Organize your trips with detailed notes and dates</p>
+    </div>
+
+    <div class="text-center p-6">
+      <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+        </svg>
+      </div>
+      <h3 class="text-lg font-semibold text-gray-900 mb-2">Stay Organized</h3>
+      <p class="text-gray-600">Keep all your adventure memories in one place</p>
+    </div>
+
+    <div class="text-center p-6">
+      <div class="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+        </svg>
+      </div>
+      <h3 class="text-lg font-semibold text-gray-900 mb-2">Quick Access</h3>
+      <p class="text-gray-600">Fast and intuitive interface for busy adventurers</p>
+    </div>
+  </div>
+</div>
