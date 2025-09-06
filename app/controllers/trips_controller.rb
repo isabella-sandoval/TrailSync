@@ -1,12 +1,12 @@
 class TripsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!
   before_action :set_trip, only: %i[ show edit update destroy ]
 
   # GET /trips or /trips.json
   def index
-    @trips = Trip.recent
-    @upcoming_trips = Trip.upcoming.limit(3)
-    @past_trips = Trip.past.limit(5)
+    @trips = current_user&.trips&.recent || Trip.none
+    @upcoming_trips = current_user&.trips&.upcoming&.limit(3) || Trip.none
+    @past_trips = current_user&.trips&.past&.limit(5) || Trip.none
   end
 
   # GET /trips/1 or /trips/1.json
@@ -15,7 +15,7 @@ class TripsController < ApplicationController
 
   # GET /trips/new
   def new
-    @trip = Trip.new
+    @trip = current_user.trips.build
   end
 
   # GET /trips/1/edit
@@ -24,19 +24,21 @@ class TripsController < ApplicationController
 
   # POST /trips or /trips.json
   def create
-    @trip = Trip.new(trip_params)
+    @trip = current_user.trips.build(trip_params)
 
     respond_to do |format|
       if @trip.save
         format.html { redirect_to @trip, notice: "Trip was successfully created." }
         format.turbo_stream { 
-          @trips = Trip.recent
+          @trips = current_user.trips.recent
           render turbo_stream: turbo_stream.replace("trips_list", partial: "trips_list", locals: { trips: @trips })
         }
         format.json { render :show, status: :created, location: @trip }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.turbo_stream { render :new, status: :unprocessable_entity }
+        format.turbo_stream { 
+          render turbo_stream: turbo_stream.replace("trip_form", partial: "form", locals: { trip: @trip })
+        }
         format.json { render json: @trip.errors, status: :unprocessable_entity }
       end
     end
@@ -62,7 +64,7 @@ class TripsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to trips_path, notice: "Trip was successfully destroyed.", status: :see_other }
       format.turbo_stream { 
-        @trips = Trip.recent
+        @trips = current_user.trips.recent
         render turbo_stream: turbo_stream.replace("trips_list", partial: "trips_list", locals: { trips: @trips })
       }
       format.json { head :no_content }
@@ -72,7 +74,7 @@ class TripsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_trip
-      @trip = Trip.find(params.expect(:id))
+      @trip = current_user.trips.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
