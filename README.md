@@ -1,5 +1,3 @@
-# README
-
 # TrailSync
 
 TrailSync is a Rails application for outdoors enthusiasts, built as an experiment in leveraging LLMs to explore frameworks I’m less familiar with, such as Hotwire and Tailwind CSS. While the implementation may not always follow conventional patterns, the project integrates the National Park Service API and serves as a hands-on learning ground for AI-assisted development.
