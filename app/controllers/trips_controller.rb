@@ -31,13 +31,16 @@ class TripsController < ApplicationController
         format.html { redirect_to @trip, notice: "Trip was successfully created." }
         format.turbo_stream { 
           @trips = current_user.trips.recent
-          render turbo_stream: turbo_stream.replace("trips_list", partial: "trips_list", locals: { trips: @trips })
+          render turbo_stream: [
+            turbo_stream.replace("trips_list", partial: "trips_list", locals: { trips: @trips }),
+            turbo_stream.replace("new_trip_form", partial: "trip_created_success", locals: { trip: @trip })
+          ]
         }
         format.json { render :show, status: :created, location: @trip }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.turbo_stream { 
-          render turbo_stream: turbo_stream.replace("trip_form", partial: "form", locals: { trip: @trip })
+          render turbo_stream: turbo_stream.replace("new_trip_form", partial: "form", locals: { trip: @trip })
         }
         format.json { render json: @trip.errors, status: :unprocessable_entity }
       end

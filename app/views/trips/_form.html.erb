@@ -1,4 +1,4 @@
-<%= form_with(model: trip, class: "space-y-6", data: { turbo_frame: "trips_list" }) do |form| %>
+<%= form_with(model: trip, class: "space-y-6", data: { turbo_frame: "new_trip_form" }) do |form| %>
   <% if trip.errors.any? %>
     <div class="bg-red-50 border border-red-200 rounded-lg p-4">
       <div class="flex items-center mb-3">

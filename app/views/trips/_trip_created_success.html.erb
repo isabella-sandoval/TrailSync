@@ -1,0 +1,24 @@
+<div class="bg-white rounded-xl shadow-lg border border-gray-100 p-8">
+  <!-- Success Icon and Message -->
+  <div class="text-center mb-6">
+    <div class="bg-green-100 p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+      <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </div>
+    <h3 class="text-xl font-bold text-gray-900 mb-2">Trip Created Successfully!</h3>
+    <p class="text-gray-600 mb-4">
+      "<%= trip.title %>" has been added to your trips.
+    </p>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
+    <%= link_to trip_path(trip), class: "flex-1 text-center bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition duration-300" do %>
+      View Trip Details
+    <% end %>
+    <%= link_to new_trip_path, class: "flex-1 text-center bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition duration-300", data: { turbo_frame: "new_trip_form" } do %>
+      Create Another Trip
+    <% end %>
+  </div>
+</div>
