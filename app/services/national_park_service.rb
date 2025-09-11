@@ -12,6 +12,20 @@ class NationalParkService
     raise "NPS API key not configured. Add to Rails credentials or ENV['NPS_API_KEY']" if @api_key.blank?
   end
   
+  # Get things to do for a park
+  def get_things_to_do(park_code = nil, limit: 50)
+    options = {
+      query: {
+        api_key: @api_key,
+        parkCode: park_code,
+        limit: limit
+      }.compact
+    }
+    
+    response = self.class.get('/thingstodo', options)
+    handle_response(response)
+  end
+  
   # Get events for parks
   def get_events(park_code: nil, state_code: nil, limit: 10)
     options = {
@@ -24,6 +38,21 @@ class NationalParkService
     }
     
     response = self.class.get('/events', options)
+    handle_response(response)
+  end
+  
+  # Get webcams for parks
+  def get_webcams(park_code: nil, state_code: nil, limit: 50)
+    options = {
+      query: {
+        api_key: @api_key,
+        parkCode: park_code,
+        stateCode: state_code,
+        limit: limit
+      }.compact
+    }
+    
+    response = self.class.get('/webcams', options)
     handle_response(response)
   end
   

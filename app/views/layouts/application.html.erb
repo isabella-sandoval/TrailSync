@@ -41,9 +41,13 @@
           <%= link_to "Home", root_path, class: "text-gray-700 hover:text-blue-600 font-medium transition duration-300 #{'text-blue-600 font-semibold' if current_page?(root_path)}" %>
           <% if user_signed_in? %>
             <%= link_to "My Trips", trips_path, class: "text-gray-700 hover:text-blue-600 font-medium transition duration-300 #{'text-blue-600 font-semibold' if current_page?(trips_path)}" %>
+            <%= link_to "Things to Do", things_to_do_index_path, class: "text-gray-700 hover:text-blue-600 font-medium transition duration-300 #{'text-blue-600 font-semibold' if current_page?(things_to_do_index_path)}" %>
+            <%= link_to "Webcams", webcams_path, class: "text-gray-700 hover:text-blue-600 font-medium transition duration-300 #{'text-blue-600 font-semibold' if current_page?(webcams_path)}" %>
             <%= link_to "New Trip", new_trip_path, class: "bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 font-medium" %>
           <% else %>
             <%= link_to "All Trips", trips_path, class: "text-gray-700 hover:text-blue-600 font-medium transition duration-300 #{'text-blue-600 font-semibold' if current_page?(trips_path)}" %>
+            <%= link_to "Things to Do", things_to_do_index_path, class: "text-gray-700 hover:text-blue-600 font-medium transition duration-300 #{'text-blue-600 font-semibold' if current_page?(things_to_do_index_path)}" %>
+            <%= link_to "Webcams", webcams_path, class: "text-gray-700 hover:text-blue-600 font-medium transition duration-300 #{'text-blue-600 font-semibold' if current_page?(webcams_path)}" %>
           <% end %>
         </div>
 
@@ -76,9 +80,13 @@
           <%= link_to "Home", root_path, class: "block text-gray-700 hover:text-blue-600 font-medium transition duration-300" %>
           <% if user_signed_in? %>
             <%= link_to "My Trips", trips_path, class: "block text-gray-700 hover:text-blue-600 font-medium transition duration-300" %>
+            <%= link_to "Things to Do", things_to_do_index_path, class: "block text-gray-700 hover:text-blue-600 font-medium transition duration-300" %>
+            <%= link_to "Webcams", webcams_path, class: "block text-gray-700 hover:text-blue-600 font-medium transition duration-300" %>
             <%= link_to "New Trip", new_trip_path, class: "block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 font-medium text-center" %>
           <% else %>
             <%= link_to "All Trips", trips_path, class: "block text-gray-700 hover:text-blue-600 font-medium transition duration-300" %>
+            <%= link_to "Things to Do", things_to_do_index_path, class: "block text-gray-700 hover:text-blue-600 font-medium transition duration-300" %>
+            <%= link_to "Webcams", webcams_path, class: "block text-gray-700 hover:text-blue-600 font-medium transition duration-300" %>
           <% end %>
         </div>
       </div>

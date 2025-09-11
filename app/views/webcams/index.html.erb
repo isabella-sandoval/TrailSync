@@ -1,0 +1,38 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Header -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">National Park Webcams</h1>
+    <p class="text-gray-600">Explore live and static webcams from national parks across the United States</p>
+  </div>
+
+  <!-- Search Form -->
+  <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+    <%= form_with url: search_webcams_path, method: :get, local: true, class: "flex flex-col sm:flex-row gap-4" do |form| %>
+      <div class="flex-1">
+        <%= form.select :state_code, options_for_select(@states, params[:state_code]), 
+              { prompt: "Select a state..." }, 
+              { class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" } %>
+      </div>
+      <div>
+        <%= form.submit "Search Webcams", class: "bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-200" %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Webcams Grid -->
+  <% if @webcams.any? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% @webcams.each do |webcam| %>
+        <%= render 'shared/webcam_card', webcam: webcam %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center py-12">
+      <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      <h3 class="mt-2 text-sm font-medium text-gray-900">No webcams found</h3>
+      <p class="mt-1 text-sm text-gray-500">Try selecting a different state or check back later.</p>
+    </div>
+  <% end %>
+</div>
